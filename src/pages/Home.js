@@ -17,9 +17,7 @@ const Home = () => {
         <WeatherDetails />
         <DailyForecast />
       </div>
-      <div className="flex-[1]">
-        <MoreDetails />
-      </div>
+      <MoreDetails />
     </div>
   );
 };

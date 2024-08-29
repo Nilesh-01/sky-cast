@@ -1,8 +1,42 @@
 import axios from "axios";
 
-export const getWeatherCondition = async (lat, lon, API_key) => {
-  const data = await axios.get(
-    `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_key}`
-  );
-  console.log(data);
+export const getAstronomyCondition = async (searchText = "Goa, India") => {
+  const options = {
+    method: "GET",
+    url: "https://weatherapi-com.p.rapidapi.com/astronomy.json",
+    params: { q: searchText },
+    headers: {
+      "x-rapidapi-key": "24d94b6d2amshe5e88f27e41ae07p18ffd1jsnd050f7182422",
+      "x-rapidapi-host": "weatherapi-com.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getForecastCondition = async (searchText = "Goa, India") => {
+  const options = {
+    method: "GET",
+    url: "https://weatherapi-com.p.rapidapi.com/forecast.json",
+    params: {
+      q: searchText,
+      days: "7",
+    },
+    headers: {
+      "x-rapidapi-key": "24d94b6d2amshe5e88f27e41ae07p18ffd1jsnd050f7182422",
+      "x-rapidapi-host": "weatherapi-com.p.rapidapi.com",
+    },
+  };
+
+  try {
+    const response = await axios.request(options);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
 };

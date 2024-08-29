@@ -1,23 +1,40 @@
+import { useEffect, useState } from "react";
 import DailyForecast from "../components/DailyForecast";
 import MoreDetails from "../components/MoreDetails";
 import SearchInput from "../components/SearchInput";
 import WeatherDetails from "../components/WeatherDetails";
-import { getWeatherCondition } from "../services/weather.service";
+import {
+  getAstronomyCondition,
+  getForecastCondition,
+} from "../services/weather.service";
 
 const Home = () => {
-  console.log(process.env.REACT_APP_API_KEY);
-  const fetchWeatherData = async () => {
-    await getWeatherCondition(71, 49, process.env.REACT_APP_API_KEY);
+  const [forecastData, setForecastData] = useState();
+  const [astronomyData, setAstronomyData] = useState();
+
+  const handleForecastData = async () => {
+    const response = await getForecastCondition();
+    setForecastData(response);
   };
+
+  const handleAstronomyData = async () => {
+    const response = await getAstronomyCondition();
+    setAstronomyData(response);
+  };
+  useEffect(() => {
+    handleForecastData();
+    handleAstronomyData();
+  }, []);
+
   return (
     <div className="flex h-full">
       {/* <SearchInput /> */}
       {/* <button onClick={fetchWeatherData}>Get Data</button> */}
       <div className="p-[32px] flex flex-col flex-[2]">
-        <WeatherDetails />
+        <WeatherDetails forecastData={forecastData} />
         <DailyForecast />
       </div>
-      <MoreDetails />
+      <MoreDetails astronomyData={astronomyData} />
     </div>
   );
 };

@@ -6,7 +6,7 @@ export const getAstronomyCondition = async (searchText = "Goa, India") => {
     url: "https://weatherapi-com.p.rapidapi.com/astronomy.json",
     params: { q: searchText },
     headers: {
-      "x-rapidapi-key": "24d94b6d2amshe5e88f27e41ae07p18ffd1jsnd050f7182422",
+      "x-rapidapi-key": process.env.REACT_APP_API_KEY,
       "x-rapidapi-host": "weatherapi-com.p.rapidapi.com",
     },
   };
@@ -28,7 +28,7 @@ export const getForecastCondition = async (searchText = "Goa, India") => {
       days: "7",
     },
     headers: {
-      "x-rapidapi-key": "24d94b6d2amshe5e88f27e41ae07p18ffd1jsnd050f7182422",
+      "x-rapidapi-key": process.env.REACT_APP_API_KEY,
       "x-rapidapi-host": "weatherapi-com.p.rapidapi.com",
     },
   };

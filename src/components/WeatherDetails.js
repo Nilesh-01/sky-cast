@@ -1,4 +1,3 @@
-import WeatherIcon from "../assets/WeatherIcon.png";
 import Hum from "../assets/hum.png";
 import WindDir from "../assets/wind-direction-icon.png";
 import Cloud from "../assets/cloud.png";

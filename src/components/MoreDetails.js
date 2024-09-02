@@ -4,9 +4,9 @@ import { ReactComponent as Search } from "../assets/search.svg";
 import ForecastCard from "./ForecastCard";
 import SearchInput from "./SearchInput";
 
-const MoreDetails = ({ astronomyData }) => {
-  console.log(astronomyData);
+const MoreDetails = ({ astronomyData, onSearch }) => {
   const [showInputBox, setShowInputBox] = useState(false);
+
   return (
     <div className="more-details-bg p-[32px] flex-[1]">
       <div className="h-[40px] mb-[60px]">
@@ -17,7 +17,10 @@ const MoreDetails = ({ astronomyData }) => {
             <Search onClick={() => setShowInputBox(true)} />
           </div>
         ) : (
-          <SearchInput onClose={() => setShowInputBox(false)} />
+          <SearchInput
+            onSearch={onSearch}
+            onClose={() => setShowInputBox(false)}
+          />
         )}
       </div>
       <div className="flex pb-[36px] border-b-2 justify-between">

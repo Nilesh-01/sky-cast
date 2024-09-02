@@ -1,12 +1,21 @@
 import { useState } from "react";
 import { ReactComponent as SearchIcon } from "../assets/search.svg";
 
-const SearchInput = ({ onClose }) => {
+const SearchInput = ({ onClose, onSearch }) => {
   const [searchText, setSearchText] = useState("");
   const handleSearchChange = (e) => {
     setSearchText(e.target.value);
   };
-  console.log(searchText);
+
+  const handleSearchButton = () => {
+    onClose();
+    onSearch(searchText);
+  };
+  const handleKeyDown = (e) => {
+    if (e.key == "Enter") {
+      handleSearchButton();
+    }
+  };
   return (
     <div className="search-input flex">
       <input
@@ -14,8 +23,9 @@ const SearchInput = ({ onClose }) => {
         value={searchText}
         onChange={handleSearchChange}
         placeholder="Enter City"
+        onKeyDown={handleKeyDown}
       />
-      <SearchIcon onClick={onClose} className="mr-[2px]" />
+      <SearchIcon onClick={handleSearchButton} className="mr-[2px]" />
     </div>
   );
 };

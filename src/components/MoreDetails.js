@@ -1,28 +1,14 @@
 import { useState } from "react";
-import { ReactComponent as Location } from "../assets/location.svg";
-import { ReactComponent as Search } from "../assets/search.svg";
 import ForecastCard from "./ForecastCard";
-import SearchInput from "./SearchInput";
+import Card from "./Card";
+import { ReactComponent as Sun } from "../assets/sun.svg";
+import { ReactComponent as HeatIndex } from "../assets/heatIndex.svg";
+import { ReactComponent as Feels } from "../assets/feels.svg";
 
-const MoreDetails = ({ astronomyData, onSearch }) => {
-  const [showInputBox, setShowInputBox] = useState(false);
-
+const MoreDetails = ({ astronomyData, forecastData, children }) => {
   return (
     <div className="more-details-bg p-[32px] flex-[1]">
-      <div className="h-[40px] mb-[60px]">
-        {!showInputBox ? (
-          <div className="flex gap-[6px]">
-            <Location />
-            <div className="font-light flex-1 text-3xl pl-4">{`${astronomyData?.location?.name}, ${astronomyData?.location?.country}`}</div>
-            <Search onClick={() => setShowInputBox(true)} />
-          </div>
-        ) : (
-          <SearchInput
-            onSearch={onSearch}
-            onClose={() => setShowInputBox(false)}
-          />
-        )}
-      </div>
+      {children}
       <div className="flex pb-[36px] border-b-2 justify-between">
         <div className="flex mt-[28px] flex-col gap-[14px] items-center">
           <div className="text-xl">Sunrise</div>
@@ -39,6 +25,23 @@ const MoreDetails = ({ astronomyData, onSearch }) => {
           <div className="text-xl">Sunset</div>
           <ForecastCard mainText={astronomyData?.astronomy?.astro?.sunset} />
         </div>
+      </div>
+      <div className="flex mt-[28px] gap-[14px] justify-center">
+        <Card
+          mainText="Feels like"
+          subText={`${forecastData?.current?.feelslike_c} °C`}
+          icon={<Feels className="w-[32px] h-[32px]" />}
+        />
+        <Card
+          mainText="Heat Index"
+          subText={`${forecastData?.current?.heatindex_c}`}
+          icon={<HeatIndex className="w-[32px] h-[32px]" />}
+        />
+        <Card
+          mainText="UV Index"
+          subText={forecastData?.current?.uv}
+          icon={<Sun className="w-[32px] h-[32px]" />}
+        />
       </div>
     </div>
   );

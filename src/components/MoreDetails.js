@@ -9,7 +9,7 @@ const MoreDetails = ({ astronomyData, forecastData, children }) => {
   return (
     <div className="more-details-bg p-[32px] flex-[1]">
       {children}
-      <div className="flex pb-[36px] border-b-2 justify-between">
+      <div className="flex pb-[36px] gap-2 border-b-2 justify-between">
         <div className="flex mt-[28px] flex-col gap-[14px] items-center">
           <div className="text-xl">Sunrise</div>
           <ForecastCard mainText={astronomyData?.astronomy?.astro?.sunrise} />

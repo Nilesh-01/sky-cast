@@ -42,7 +42,22 @@ const Home = () => {
     setAstronomyData(response);
   };
 
-  console.log(forecastData);
+  const renderSearchInput = () => (
+    <div className="h-[40px] mb-[70px]">
+      {!showInputBox ? (
+        <div className="flex gap-[6px]">
+          <Location />
+          <div className="font-light flex-1 text-3xl pl-4">{`${astronomyData?.location?.name}, ${astronomyData?.location?.country}`}</div>
+          <Search onClick={() => setShowInputBox(true)} />
+        </div>
+      ) : (
+        <SearchInput onSearch={onSearch} />
+      )}
+      {error && (
+        <div className="text-sm text-red-500 pt-[4px]">City does not exist</div>
+      )}
+    </div>
+  );
 
   useEffect(() => {
     if (city) {
@@ -52,28 +67,16 @@ const Home = () => {
   }, [city]);
 
   return (
-    <div className="flex h-full">
-      <div className="p-[32px] flex flex-col flex-[2]">
+    <div className="flex h-full flex-col lg:flex-row">
+      <div className="lg:overflow-x-hidden p-[32px] flex flex-col flex-[2] ">
+        <div className="block lg:hidden">{renderSearchInput()}</div>
         <WeatherDetails forecastData={forecastData} />
-        <DailyForecast />
+        <DailyForecast
+          hourlyData={forecastData?.forecast?.forecastday?.[0]?.hour}
+        />
       </div>
       <MoreDetails astronomyData={astronomyData} forecastData={forecastData}>
-        <div className="h-[40px] mb-[60px]">
-          {!showInputBox ? (
-            <div className="flex gap-[6px]">
-              <Location />
-              <div className="font-light flex-1 text-3xl pl-4">{`${astronomyData?.location?.name}, ${astronomyData?.location?.country}`}</div>
-              <Search onClick={() => setShowInputBox(true)} />
-            </div>
-          ) : (
-            <SearchInput onSearch={onSearch} />
-          )}
-          {error && (
-            <div className="text-sm text-red-500 pt-[4px]">
-              City does not exist
-            </div>
-          )}
-        </div>
+        <div className="hidden lg:block">{renderSearchInput()}</div>
       </MoreDetails>
     </div>
   );

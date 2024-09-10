@@ -18,10 +18,10 @@ const WeatherDetails = ({ forecastData }) => {
         <sup className="font-normal align-super text-xl">°C</sup>
       </div>
       <div className="flex items-end gap-[16px]">
-        <div className="font-light text-xl lg:text-3xl">
+        <div className="font-light text-mb lg:text-3xl">
           {moment(forecastData?.location?.localtime).format("Do MMM YYYY")}
         </div>
-        <div className="font-light text-xl">
+        <div className="font-light text-mb lg:text-xl">
           {moment(forecastData?.location?.localtime).format("dddd")} |{" "}
           {moment(forecastData?.location?.localtime).format("LT")}
         </div>
